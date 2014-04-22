@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
@@ -19,6 +20,7 @@ public class twitter_oauth extends ActionBarActivity {
     private String mCallbackURL;
     private Twitter mTwitter;
     private RequestToken mRequestToken;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class twitter_oauth extends ActionBarActivity {
 
     /**
      * OAuth認証（厳密には認可）を開始します。
+     *
+     * @param listener
      */
     private void startAuthorize() {
         AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {

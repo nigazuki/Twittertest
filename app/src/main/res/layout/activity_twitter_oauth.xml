@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Button
         android:layout_width="wrap_content"
@@ -10,4 +11,5 @@
         android:text="twitter認証"
         android:id="@+id/action_start_oauth"
         android:layout_gravity="center_horizontal|center_vertical" />
-</LinearLayout>
+
+    </FrameLayout>

@@ -9,8 +9,8 @@ package com.example.twittertest.app;
 
 public class TwitterUtils {
 
-    private static final String TOKEN = "token";
-    private static final String TOKEN_SECRET = "token_secret";
+    private static final String TOKEN = "150225162-Lvthlzx0o7er6RiNppB7YMVSqN4AadScxDNx2s6T";
+    private static final String TOKEN_SECRET = "aasFK3hVselHDtN7XJ1G2T5ARNTC7BViWVG3Bkx5qBkg6";
     private static final String PREF_NAME = "twitter_access_token";
 
     /**
