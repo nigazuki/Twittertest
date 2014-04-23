@@ -9,5 +9,6 @@
     <string name="title_activity_twitter_oauth">twitter_oauth</string>
     <string name="twitter_callback_url">gabu://twitter</string>
     <string name="title_activity_tweet">Tweet</string>
+    <string name="title_activity_main_activity2">MainActivity</string>
 
 </resources>

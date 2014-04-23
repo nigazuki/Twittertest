@@ -2,17 +2,22 @@ package com.example.twittertest.app;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,15 +25,18 @@ import com.loopj.android.image.SmartImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.conf.Configuration;
+import twitter4j.conf.ConfigurationBuilder;
+import twitter4j.TwitterStreamFactory;
+import twitter4j.UserStreamAdapter;
 
 public class MainActivity extends ListActivity {
     private TweetAdapter mAdapter;
     private Twitter mTwitter;
+    private EditText mInputText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class MainActivity extends ListActivity {
             setListAdapter(mAdapter);
 
             mTwitter = TwitterUtils.getTwitterInstance(this);
+
             reloadTimeLine();
         }
     }
@@ -104,18 +113,57 @@ public class MainActivity extends ListActivity {
             icon.setImageUrl(item.getUser().getProfileImageURL());
             return convertView;
         }
-
-
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_refresh:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle("Tweet");
 
-                return true;
+    private void tweet() {
+        mInputText = (EditText) findViewById(R.id.tweet_text);
+        AsyncTask<String, Void, Boolean> task = new AsyncTask<String, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(String... params) {
+                try {
+                    mTwitter.updateStatus("test");
+                    return true;
+                } catch (TwitterException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if (result) {
+                    showToast("ツイートが完了しました！");
+                    finish();
+                } else {
+                    showToast("ツイートに失敗しました。。。");
+                }
+            }
+        };
+        task.execute(mInputText.getText().toString());
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.tweet_button) {
+/*            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Tweet");
+            LayoutInflater inflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
+            final View layout = inflater.inflate(R.layout.tweet_tweet, null);
+            alertDialogBuilder.setView(layout);
+            alertDialogBuilder.show();
+*/
+            Intent intent = new Intent(this, MainActivity2.class);
+            startActivity(intent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

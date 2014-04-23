@@ -13,15 +13,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content">
 
             <com.loopj.android.image.SmartImageView
                 android:id="@+id/icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_launcher" />
+                android:layout_alignParentTop="true" />
 
             <LinearLayout
                 android:orientation="vertical"
