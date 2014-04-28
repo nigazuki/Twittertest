@@ -20,23 +20,20 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.loopj.android.image.SmartImageView;
-
 import java.util.ArrayList;
 import java.util.List;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.conf.Configuration;
-import twitter4j.conf.ConfigurationBuilder;
-import twitter4j.TwitterStreamFactory;
-import twitter4j.UserStreamAdapter;
 
 public class MainActivity extends ListActivity {
     private TweetAdapter mAdapter;
     private Twitter mTwitter;
-    private EditText mInputText;
+
+    public final static int REQUEST_CODE = 1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +94,7 @@ public class MainActivity extends ListActivity {
             super(context, android.R.layout.simple_list_item_1);
             mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
@@ -115,32 +113,6 @@ public class MainActivity extends ListActivity {
         }
     }
 
-    private void tweet() {
-        mInputText = (EditText) findViewById(R.id.tweet_text);
-        AsyncTask<String, Void, Boolean> task = new AsyncTask<String, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(String... params) {
-                try {
-                    mTwitter.updateStatus("test");
-                    return true;
-                } catch (TwitterException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Boolean result) {
-                if (result) {
-                    showToast("ツイートが完了しました！");
-                    finish();
-                } else {
-                    showToast("ツイートに失敗しました。。。");
-                }
-            }
-        };
-        task.execute(mInputText.getText().toString());
-    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -159,11 +131,26 @@ public class MainActivity extends ListActivity {
             alertDialogBuilder.show();
 */
             Intent intent = new Intent(this, MainActivity2.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE);
+            return true;
+        }
+        if(id == R.id.menu_refresh){
+            reloadTimeLine();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                reloadTimeLine();
+                showToast("ツイートが完了");
+            }else if (requestCode == RESULT_CANCELED) showToast("ツイート失敗");
 
+        }
+
+    }
 }
