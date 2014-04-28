@@ -6,6 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="twitter_consumer_key">5oavSSQ4PXtaYS6KdOObzxLO2</string>
     <string name="twitter_consumer_secret">voylWuocx2c0TUieNh8da5AjCpVa4rZOLSlD6Q2oNrLFVasokq</string>
+    <string name="twitter_access_token">150225162-Lvthlzx0o7er6RiNppB7YMVSqN4AadScxDNx2s6T</string>
+    <string name="twitter_access_token_secret">aasFK3hVselHDtN7XJ1G2T5ARNTC7BViWVG3Bkx5qBkg6</string>
     <string name="title_activity_twitter_oauth">twitter_oauth</string>
     <string name="twitter_callback_url">gabu://twitter</string>
     <string name="title_activity_tweet">Tweet</string>
